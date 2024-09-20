@@ -3,8 +3,8 @@
 namespace Digimantra\Digiemail\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Digimantra\Digiemail\Mail\ContactMailable;
-use Illuminate\Support\Facades\Mail;
+use Digimantra\Digiemail\Jobs\SendContactEmailJob;
+
  
 class ContactController extends Controller{
  
@@ -41,7 +41,7 @@ class ContactController extends Controller{
                 } else {
                    $files = [] ;
                 }
-                Mail::to($email)->send(new ContactMailable($content, $view, $subject, $files));
+                SendContactEmailJob::dispatch($email, $content, $view, $subject, $files);
                 return 1;
         } catch(\Exception $th){
             Log::error( $th->getMessage());
