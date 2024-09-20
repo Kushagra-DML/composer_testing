@@ -1,9 +1,9 @@
 <?php
  
-namespace Kushagra\Testing\Http\Controllers;
+namespace Digimantra\Digiemail\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Kushagra\Testing\Mail\ContactMailable;
+use Digimantra\Digiemail\Mail\ContactMailable;
 use Illuminate\Support\Facades\Mail;
  
 class ContactController extends Controller{
@@ -39,7 +39,7 @@ class ContactController extends Controller{
                 if( !empty($data['files']) ){
                     $files = $data['files'];
                 } else {
-                   $files = '' ;
+                   $files = [] ;
                 }
                 Mail::to($email)->send(new ContactMailable($content, $view, $subject, $files));
                 return 1;
